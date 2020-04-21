@@ -12,7 +12,7 @@ def countSort(arr, n, exp):
     for i in range(n):
         arr[i] = output[i]
 
-# size n using Radix Sort
+#  size n using Radix Sort
 def sort(arr):
     n = len(arr)
     # Do counting sort for first digit in base n.
