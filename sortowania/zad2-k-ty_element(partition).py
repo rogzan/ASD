@@ -1,3 +1,8 @@
+#Proszę zaimplementować funkcję Select( A, k ), która zwraca k-ty co do wielkości element z tablicy A. 
+#Funkcja powinna działać w oczekiwanym czasie liniowym (przy założeniu, że funkcja partition z algorytmu 
+#QuickSort zawsze dzieli tablicę wejściową na dwie z grubsza równe części)
+
+
 def Select(A, k):   
     return _Select(A, 0, len(A) - 1, k)
 
