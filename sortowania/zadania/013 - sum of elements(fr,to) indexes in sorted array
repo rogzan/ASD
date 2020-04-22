@@ -1,0 +1,38 @@
+"""
+Proszę zaimplementować funkcję SumBetween(arr,from,to,n), której zadaniem jest obliczyć sumę liczb z n elementowej tablicy
+arr, które w posortowanej tablicy znajdowałyby się na pozycjach o indeksach od from do to (włącznie). Można przyjąć, że liczby
+w tablicy są parami różne.
+
+"""
+def partition(arr,left,right):
+    i=left-1
+    pivot=arr[right]
+    for j in range(left,right):
+        if arr[j]<=pivot:
+            i+=1
+            arr[i],arr[j]=arr[j],arr[i]
+    arr[i+1],arr[right]=arr[right],arr[i+1]
+    return i+1
+
+
+def kthPosition(arr,left,right,k):
+    if left<right:
+        pi=partition(arr,left,right)
+
+        if pi==k:
+            return
+
+        if pi<k:
+            kthPosition(arr,pi+1,right,k)
+        else:
+            kthPosition(arr,left,pi-1,k)
+
+
+def sumBetween(arr,fr,to):
+    kthPosition(arr,0,len(arr)-1,fr)
+    kthPosition(arr,0,len(arr)-1,to)
+    sum=0
+    for i in range(fr,to+1):
+        sum+=arr[i]
+
+    return sum
