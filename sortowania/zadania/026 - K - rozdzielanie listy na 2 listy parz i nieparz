@@ -1,0 +1,107 @@
+"""
+K 2014/2015 Zadanie 2
+
+Dane są następujące klasy
+class Node:
+    def __init__(self,val):
+        self.val=val
+        self.next=None
+
+class TwoLists:
+    def __init__(self):
+        self.even=None
+        self.odd=None
+
+Napisać funkcję która rozdziela listę na dwie, jedną zawierającą liczby parzyste i drugą zawierającą liczby
+nieparzyste. Listy nie zawierają wartowników.
+
+"""
+class Node:
+    def __init__(self,val):
+        self.val=val
+        self.next=None
+
+class TwoLists:
+    def __init__(self):
+        self.even=None
+        self.odd=None
+
+def addNode(head,val):
+    add=Node(val)
+    add.next=head
+    head=add
+    return head
+
+def createList():
+    head = Node(6)
+    head = addNode(head, 7)
+    head = addNode(head, 2)
+    head = addNode(head, 4)
+    head = addNode(head, 2)
+    head = addNode(head, 30)
+    head = addNode(head, 70)
+    head = addNode(head, 1)
+    head = addNode(head, 2)
+    head = addNode(head, 4)
+    head = addNode(head, 9)
+    head = addNode(head, 7)
+    head = addNode(head, 3)
+    head = addNode(head, 45)
+    head = addNode(head, 11)
+    head = addNode(head, 10)
+    head = addNode(head, 8)
+    head = addNode(head, 5)
+
+    return head
+
+
+def splitList(head):
+
+    head_odd=None
+    head_even=None
+
+    curr=head
+    while curr:
+        p = curr
+        curr = curr.next
+        p.next = None
+
+        if p.val%2==0:
+            if not head_even:
+                head_even=p
+            else:
+                p.next=head_even
+                head_even=p
+        else:
+
+            if not head_odd:
+                head_odd = p
+            else:
+                p.next = head_odd
+                head_odd = p
+
+    TL=TwoLists()
+    TL.even=head_even
+    TL.odd=head_odd
+
+    return TL
+
+def printList(head):
+    p=head
+    while p:
+        print(p.val)
+        p=p.next
+
+if __name__=="__main__":
+    head=createList()
+    two=splitList(head)
+    print("odd")
+    o=two.odd
+    while o:
+        print(o.val)
+        o=o.next
+    print("even")
+    e=two.even
+    while e:
+        print(e.val)
+        e=e.next
