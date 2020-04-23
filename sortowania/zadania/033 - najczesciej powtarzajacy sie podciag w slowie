@@ -1,0 +1,71 @@
+"""
+Dane jest słowo będące tablicą n znaków z alfabetu E, o rozmiarze |E|. Dana jest również  liczba k.
+Długość słowa wynosi co najmniej |E|^k. Zaproponuj algorytm, który zwróci najczęściej powtarzający się
+w tym słowie podciąg długości k. Algorytm ma działać w czasie O(n), wykorzystywać O(1) pamięci.
+Ponadto zawartość tablicy po wykonaniu algorytmu powinna pozostać niezmieniona.
+
+
+
+Należy potraktować litery alfabetu, jako cyfry systemu liczbowego. Wtedy podciągi o długości k będą liczbami z zakresu od
+0 do E^K-1. możemy zatem E^K początkowych pozycji naszego słowa wykorzystać do przechowywania liczników liczb odpowiadających odpowienim indeksom. Zeby nie niszczyć naszego słowa to po indeksem i przechowujemy K*(licznik wystąpień liczby i ) + wartość litery
+w początkowym słowie pod indeksem i. Wtedy możemy po zakończeniu operacji przywrócić początkową zawartość słowa poprzez operację
+%.
+
+"""
+
+def dec(l,e):
+    r=0
+    w=0
+    for i in range(len(l)-1,-1,-1):
+        add=(e**w)*l[i]
+        r+=add
+        w+=1
+    return r
+
+def to_e(l,e,k):
+    arr=[]
+    for i in range(k):
+        arr.append(l%e)
+        l=l//e
+    i=0
+    j=len(arr)-1
+    while i<j:
+        arr[i],arr[j]=arr[j],arr[i]
+        i+=1
+        j-=1
+    return arr
+
+
+def alph(s,e,k):
+
+    for i in range(len(s)):
+        s[i]=ord(s[i])-97
+    print(s)
+    liczba=[]
+    for i in range(k):
+        liczba.append(s[i])
+    s[dec(liczba,e)]+=k
+    for i in range(k,len(s)):
+        liczba.pop(0)
+        liczba.append(s[i]%k)
+        s[dec(liczba,e)]+=k
+    print(s)
+    mx=0
+    idx=0
+    for i in range(len(s)):
+        if s[i]>mx:
+            idx=i
+            mx=s[i]
+
+    ans=to_e(idx,e,k)
+
+
+
+
+
+
+if __name__=="__main__":
+    s=['a','b','a','b','b','a','b','a','b','a','a','a','a','b','a','b','a','b','a','b','a','b',]
+    e=2
+    k=3
+    alph(s,e,k)
