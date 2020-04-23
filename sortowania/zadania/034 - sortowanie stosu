@@ -1,0 +1,91 @@
+"""
+Zaproponuj algorytm, który w czasie O(nlogn) posortuje stos o rozmiarze n. Dozwolone
+jest tylko wykorzystywanie operacji udostępnionych przez interfejs stosu:
+push(), pop(), top(), isEmpty() oraz dodatkowych stosów.
+
+
+Potrzeba 3 dodatkowych stosów. ściągamy z początkowego stosu tak długo jak są posortowane i idkładamy na drugi stos. 
+Potem tak samo na trzeci stos. Te da stosy scalamy na czwarty stos. Powtarzamy takie ściąganie list naturalnych aż 
+pierwszy stos będzie pusty. Wtedy czwarty stos staje się pierwszy i operację kontynuujemy, aż ściągniećie listy 
+naturalnej będzie ściągnięciem całego stosu.
+"""
+class Stack:
+    def __init__(self):
+        self.arr=[]
+        self.top=-1
+    def push(self,val):
+        self.arr.append(val)
+        self.top+=1
+    def pop(self):
+        x=self.arr.pop(-1)
+        self.top-=1
+        return x
+    def isEmpty(self):
+        return self.top==-1
+
+def sort(st):
+    s1=Stack()
+    s2=Stack()
+    s3=Stack()
+    elements=st.top
+
+    while not (st.isEmpty() and s3.isEmpty()):
+        s1.push(st.pop())
+        while not st.isEmpty() and s1.arr[s1.top]>=st.arr[st.top]:
+            s1.push(st.pop())
+        if s1.top==elements:
+            #koniec zabawy
+            return s1
+        if not st.isEmpty():
+            s2.push(st.pop())
+        while not st.isEmpty() and s2.arr[s2.top]>=st.arr[st.top]:
+            s2.push(st.pop())
+        while not s1.isEmpty() and not s2.isEmpty():
+            if s1.arr[s1.top]<s2.arr[s2.top]:
+                s3.push(s1.pop())
+            else:
+                s3.push(s2.pop())
+        while not s1.isEmpty():
+            s3.push(s1.pop())
+        while not s2.isEmpty():
+            s3.push(s2.pop())
+
+        if st.isEmpty():
+            st,s3=s3,st
+
+
+
+
+
+if __name__=="__main__":
+    st=Stack()
+    st.push(7)
+    st.push(10)
+    st.push(7)
+    st.push(8)
+    st.push(5)
+    st.push(3)
+    st.push(10)
+    st.push(15)
+    st.push(6)
+    st.push(16)
+    st.push(17)
+    st.push(1)
+    st.push(2)
+    st.push(3)
+    st.push(4)
+    st.push(10)
+    st.push(7)
+    st.push(10)
+    st.push(12)
+    st.push(16)
+    st.push(9)
+    st.push(8)
+    st.push(7)
+    st.push(5)
+    st.push(2)
+    st.push(10)
+
+    s=sort(st)
+    while not s.isEmpty():
+        print(s.pop())
