@@ -1,0 +1,35 @@
+"""
+Given a number, return the difference between the maximum and minimum numbers
+that can be formed when the digits are rearranged.
+"""
+def rev(arr):
+    result=[0]*len(arr)
+    j=len(arr)-1
+    for i in range(len(arr)):
+        result[i]=arr[j]
+        j-=1
+    return result
+def difference(num):
+    s=str(num)
+    counter=[0]*10
+    n=len(s)
+    for i in range(len(s)):
+        counter[int(s[i])]+=1
+    for i in range(1,10):
+        counter[i]+=counter[i-1]
+    mi=[0]*len(s)
+    for i in range(len(s)):       # sortuje malejaco
+        idx=int(s[i])
+        mi[counter[idx]-1]=idx
+        counter[idx]-=1
+    mx=rev(mi)
+    mn=10
+    lmx=0
+    lmi=0
+    for i in range(n):
+        lmx=lmx*mn+mx[i]
+        lmi=lmi*mn+mi[i]
+    return lmx-lmi
+
+n=363489214
+print(difference(n))
