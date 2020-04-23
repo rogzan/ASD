@@ -1,0 +1,28 @@
+"""
+Proszę zaproponować algorytm, który mając na wejściu dwa słowa, x i y, składające się z małych liter alfabetu
+łacińskiego sprawdzi, czy słowa te są anagramami (czyli czy zawierają tyle samo tych samych liter).
+"""
+
+
+def anagram(x,y):
+    if len(x)!=len(y):
+        return False
+    counter=[0]*26
+    for i in range(len(x)):
+        counter[ord(x[i])-97]+=1
+    for i in range(len(y)):
+        counter[ord(y[i])-97]-=1
+    for i in range(26):
+        if counter[i]!=0:
+            return False
+
+    return True
+
+
+if __name__=="__main__":
+    x="akjaka"
+    y="kaaajk"
+    if anagram(x,y):
+        print("anagram")
+    else:
+        print("nie anagram")
