@@ -1,0 +1,85 @@
+"""
+Given an array of n elements, where each element is at most k away from its target position. The task is to
+print array in sorted form
+
+SOLUTION:
+Use min-heap as priority queue
+0(n*log(k))
+
+1. create a Min heap of size k+1 with firs k+1 elements
+2. one by one remove min element from heap, put it in result array, and add a new element to heap
+from remaining elements
+
+
+"""
+
+def leftChild(i):
+    return i*2+1
+
+def rightChild(i):
+    return i*2+2
+
+
+def heapify(heap,i,size):        #przywracanie własności kopca
+
+    l=leftChild(i)
+    r=rightChild(i)
+
+    m=i
+
+    if l<size and heap[l]<heap[m]:
+        m=l
+    if r<size and heap[r]<heap[m]:
+        m=r
+
+    if m != i:
+        heap[i],heap[m]=heap[m],heap[i]
+        heapify(heap,m,size)
+
+
+def buildHeap(h,size):
+    for i in range(size-1,-1,-1):
+        heapify(h,i,size)
+
+
+
+def sort(arr,n,k):
+    if n<=k:
+        r=n
+    else:
+        r=k+1
+
+    size=r
+    heap=[0]*r
+
+    for i in range(r):
+        heap[i]=arr[i]
+    buildHeap(heap,size)
+    i=0
+    j=k+1
+
+    while j<n:
+        arr[i]=heap[0]
+        i+=1
+        heap[0]=arr[j]
+        j+=1
+        heapify(heap,0,size)
+
+    heap=sorted(heap)
+    j=0
+    while i<n:
+        arr[i]=heap[j]
+        i+=1
+        j+=1
+    return arr
+
+if __name__=="__main__":
+    t = int(input())
+
+    for i in range(t):
+        arr0 = list(map(int, input().rstrip().split()))
+        arr = list(map(int, input().rstrip().split()))
+        sort(arr,arr0[0],arr0[1])
+        for i in range(arr0[0]):
+            print(arr[i],end=" ")
+        print("")
