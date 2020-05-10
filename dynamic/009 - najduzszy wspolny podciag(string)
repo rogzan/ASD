@@ -1,0 +1,60 @@
+"""
+Mając na wejściu dwa łańcuchy znakowe (stringi) zwrócić łańcuch znakowy będący najdłuższym wspólnym
+podciągiem obu łańcuchów wejściowych.
+
+
+"""
+
+def str(s1,s2,i1,i2,arr):
+
+    if arr[i1][i2]>0:
+        return arr[i1][i2]
+
+    if i1==len(s1) or i2==len(s2):
+        result=0
+    elif s1[i1]==s2[i2]:
+        result=1+str(s1,s2,i1+1,i2+1,arr)
+    else:
+        result=max(str(s1,s2,i1,i2+1,arr),str(s1,s2,i1+1,i2,arr))
+
+    arr[i1][i2]=result
+    return result
+
+
+
+
+def SubStr(s1,s2):
+    l1=len(s1)+1
+    l2=len(s2)+1
+
+    arr=[ [ 0 for i in range(l2)] for j in range(l1)]
+
+    k=str(s1,s2,0,0,arr)
+    answ=[]
+    l1-=1
+    l2-=1
+    while l1>0 and l2>0:
+        if s1[l1-1]==s2[l2-1]:
+            answ.append(s1[l1-1])
+            l1-=1
+            l2-=1
+        elif arr[l1-1][l2]==arr[l1][l2-1]:
+            l1-=1
+            l2-=1
+        elif arr[l1-1][l2]>arr[l1][l2-1]:
+            l1-=1
+        else:
+            l2-=1
+    answ.reverse()
+    a=""
+    for i in answ:
+        a+=i
+
+    return a
+
+
+
+if __name__=="__main__":
+    s1="athjda"
+    s2="badfjda"
+    print(SubStr(s1,s2))
