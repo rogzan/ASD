@@ -1,0 +1,44 @@
+"""
+Wydawanie monet: tablica N[t] dostępnych nominałów, S- kwota do wydania.
+Obliczyć minimalną liczbę monet do wydania S.
+
+"""
+
+import sys
+
+def coins(arr,S,aux):
+
+    if S<=0:
+        return sys.maxsize
+
+    if S in arr:
+        aux[S]=1
+        return 1
+
+    res=sys.maxsize
+
+    for i in range(len(arr)):
+
+        if S-arr[i]>0:
+            idx=S-arr[i]
+            if aux[idx]==-1:
+                aux[idx] = coins(arr, idx, aux)
+
+            if aux[idx]<res:
+                res=aux[idx]+1
+
+    return res
+
+
+
+def Fcoins(arr,S):
+    aux=[-1]*(S+1)
+
+    aux[S]=coins(arr,S,aux)
+    return aux[S]
+
+
+
+if __name__=="__main__":
+    arr=[5,7,1]
+    print(Fcoins(arr,19))
