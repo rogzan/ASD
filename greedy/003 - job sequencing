@@ -1,0 +1,63 @@
+"""
+
+Job sequencing problem - loss minimization
+
+"""
+
+def mergeJobs(jobs, left, middle, right):
+
+    L=[]
+    R=[]
+
+    i=left
+    while i<=middle:
+        L.append(jobs[i])
+        i+=1
+    while i<=right:
+        R.append(jobs[i])
+        i+=1
+
+    n1=len(L)
+    n2=len(R)
+    l=0
+    r=0
+    i=left
+    while l<n1 and r<n2:
+        if L[l][0]*R[r][1]<L[l][1]*R[r][0]:
+            jobs[i]=R[r]
+            i+=1
+            r+=1
+        else:
+            jobs[i]=L[l]
+            i+=1
+            l+=1
+
+    while l<n1:
+        jobs[i]=L[l]
+        i+=1
+        l+=1
+
+    while r<n2:
+        jobs[i]=R[r]
+        i+=1
+        r+=1
+
+
+def mergeSortJobs(jobs,left,right):
+    if left<right:
+        middle=(left+right)//2
+        mergeSortJobs(jobs,left,middle)
+        mergeSortJobs(jobs,middle+1,right)
+        mergeJobs(jobs,left,middle,right)
+
+
+def jobSequence(jobs):
+    mergeSortJobs(jobs,0,len(jobs)-1)
+    print(jobs)
+
+
+
+if __name__=="__main__":
+
+    jobs=[[1,2],[2,4],[3,1],[5,3],[6,2]]
+    jobSequence(jobs)
