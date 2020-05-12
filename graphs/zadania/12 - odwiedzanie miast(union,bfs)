@@ -1,0 +1,20 @@
+# Przewodnik chce przewieźć grupę K turystóœ z miasta A do mista B. Po drodze jest jednak wiele innych miast i 
+# między różnymi miastami jeżdżą autobusy o różnej pojemności. Mamy daną listę trójek postaci (x,y,c), gdize x i y
+# to miasta między którymi bezpośrednio jeździ autobus o pojemności c pasażerów. Przewodnik musi wyznaczyć wspólną
+# trasę dla wszystkich turystów i musi ich podzielić na grupki tak, żeby każda grupka mogła przebyć trasę bez rozdzielania się.
+# Proszę podać algorytm, który oblicza na ile (najmniej) grupek przewodnik musi podzielić turystów (i jaką trasą powinni się poruszać),
+# żeby wszyscy dostali się z A do B.
+
+Opis:
+sortujemy krawędzie po pojemności
+ makeset po miastach
+ dopóki a i b nie są w jednym zbiorze, to
+    union po najdłuższej krawędzi (nieużytej do union)
+
+ostatnia użyta krawędź - rozmiar grupki
+
+teraz droga:
+usuwamy z grafu krawędzie z pojemnością poniżej rozmiaru grupki
+teraz BFS z A do B - da najkrótszą ścieżkę\
+
+złożoność n log n, n - liczba autobusów
