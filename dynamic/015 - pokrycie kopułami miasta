@@ -1,0 +1,14 @@
+Miasto chce pokryć park kopułami antysmogowymi. Park ma kształt prostokątapodzielonego na T odcinków jednakowej długości.
+Firma produkująca kopuły ma dodyspozycji określone produkty, dane jako trójki (ai,bi,ci) dla i-tej kopuły, gdzie a i b to 
+końce kopuł (przy czym a<=b), a c to koszt danej kopuły. Chcemy poznać koszt (iczy się w ogóle da, mając do dyspozycji dane kopuły) 
+pokrycia wszystkich odcinkówparku, przy czym ze względów technicznych kopuły nie mogą na siebie nachodzić.
+Należy użyć funkcji f(x), która wyznacza minimalny koszt pokrycia od odcinka 1 doodcinka x oraz podać wzór rekurencyjny tej funkcji
+
+f(x)=min(i∈[1,x-1]){f(i)+(ai+1,bx,cj)}
+Minimalny koszt pokrycia do x-tego odcinka włącznie jest równy: koszt do i-tego odcinka(czyli ostatniego,
+do którego udało się pokryć za pomocą kopuł)   plus   koszt   od   i-tego odcinka do x-tego odcinka (jeśli się da).
+Biorąc   i   od   1   do   x-1,   wybieramy   wszystkie   możliwości   i   bierzemy   z   tego   minimum,
+uzyskując  minimalny   koszt  (dzięki   programowaniu  dynamicznemu   nie  wykonujemy  przytym niepotrzebnych obliczeń).
+Dodawana kopuła musi zaczynać się na i+1 odcinku, a kończyć na x-tym. Jej koszt jestopisany jako c z indeksem j dla formalności,
+żeby zaznaczyć, że to koszt j-tej kopuły i żekoszt kopuł jest różny - w praktyce można by też napisać c,jeśli byłoby wiadomo,
+że niewszystkie kopuły mają taki sam koszt.
