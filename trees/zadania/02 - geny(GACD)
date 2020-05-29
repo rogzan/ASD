@@ -1,0 +1,19 @@
+"""
+W pewnym laboratorium genetycznym powstał ciąg sekwencji DNA. Każda sekwencja to pewien napis składający się z symboli
+G,A,T i C. Przed dalszymi badaniami konieczne jest upewnić się, że wszystkie sekwencje DNA są parami różne. Proszę
+opisać algorytm sprawdzający czy tak faktycznie jest.
+
+
+ROZWIĄZANIE:
+Można posortować w czasie liniowym i następnie również liniowo przejśc przez posortowany ciąg i sprawdzać czy 
+przypadkiem nie występują obok siebie dwie takie same sekwencje,
+
+
+Rozwiązanie wykorzystujące drzewa:
+Budujemy drzewo o 4 dzieciach, każde kolejno oznacza G,A,T,C
+Następnie dodajemy wszystkie dostępne sekwencje do tego drzewa - budujemy drzewo wszyskich sekwencji - na końcu każdej
+dodajemy dodatkowo flagę, że jest to ostatnia literka sekwencji; 
+Jeśli przy dodawaniu danej sekwencji , nie będziemy musieli dodać żadnej odnogi i dojdziemy do samego końca będzie to 
+oznaczać, że już wcześniej ta sekwencja wystąpiła.
+
+"""
