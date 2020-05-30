@@ -1,7 +1,6 @@
 class BSTNode:
     def __init__(self):
         self.key=None
-        self.value=None
         self.parent=None
         self.left=None
         self.right=None
@@ -55,7 +54,8 @@ class BSTNode:
         zipped_lines = zip(left, right)
         lines = [first_line, second_line] + [a + u * ' ' + b for a, b in zipped_lines]
         return lines, n + m + u, max(p, q) + 2, n + u // 2
-        
+
+
 def find(root,key):
     while root!=None:
         if root.key==key:
@@ -66,7 +66,7 @@ def find(root,key):
             root=root.left
     return None
 
-def insert(root,key,value):
+def insert(root,key):
 
     while root!=None:
         if root.key<key:
@@ -77,7 +77,6 @@ def insert(root,key,value):
             root=root.left
     new = BSTNode()
     new.key = key
-    new.value = value
     if prev.key<key:
         prev.right=new
         new.parent=prev
@@ -126,3 +125,55 @@ def pred(root): #poprzednik
         if root.key>f:
             return None
         return root.key
+
+
+def delete(root, key):
+    if not root:
+        return root
+    if root.key > key:
+        root.left = delete(root.left, key)
+    elif root.key < key:
+        root.right= delete(root.right, key)
+    else:
+        if not root.right:
+            return root.left
+        if not root.left:
+            return root.right
+        temp = root.right
+        mini = temp.key
+        while temp.left:
+            temp = temp.left
+            mini = temp.key
+        root.key = mini
+        root.right = delete(root.right,root.key)
+    return root
+
+
+def kth_largest(root, k):
+    stack = []
+    while root or stack:
+        while root:
+            stack.append(root)
+            root = root.right
+        root = stack.pop()
+        k -= 1
+        if k == 0:
+            return root.key
+        root = root.left
+
+root=BSTNode()
+root.key=9
+insert(root,15,)
+insert(root,6)
+insert(root,10)
+insert(root,3)
+insert(root,7)
+insert(root,8)
+insert(root,2)
+insert(root,4)
+insert(root,1)
+insert(root,20)
+
+root.display()
+delete(root,15)
+root.display()
