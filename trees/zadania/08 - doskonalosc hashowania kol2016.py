@@ -54,9 +54,9 @@ class HashTable:
 
 def enlarge(ht):
     result = HashTable(ht.n*2)
-    for i in range(result.n):
+    for i in range(result.n):  # wypelnienie tablicy pustymi miejscami
         result.a[i]=-1;
-    for i in range(ht.n):
+    for i in range(ht.n): # // przepisanie elementow tylko na "swoje" miejsca
         new_index=hash(ht.a[i])%result.n;
         if new_index==ht.a[i]:
             result.a[new_index]=ht.a[i];
@@ -64,10 +64,10 @@ def enlarge(ht):
     for i in range(ht.n):
         if ht.a[i]!=-1:
             new_index=hash(ht.a[i])%result.n;
-            while result.a[new_index]!=-1:
+            while result.a[new_index]!=-1: # poszukiwanie wolnego miejsca (liniowe rozwiazywanie konfliktow nie sprawdzam zapetlenia poniewaz jako za mamy dwa razy wiecej miejsca w tablicy to na pewno znajdziemy wolne miejsce
                 new_index=(new_index+1)%result.n;
             result.a[new_index]=ht.a[i];
-    ht.n=2*(ht.n);
+    ht.n=2*(ht.n); #// przepiecie tablicy
     ht.a=result.a;
 #-------------------------#
 class HT:
