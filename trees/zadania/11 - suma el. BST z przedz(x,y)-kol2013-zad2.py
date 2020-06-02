@@ -5,6 +5,7 @@
 # BST. (Podpowiedź: Warto w każdym węźle drzewa przechowywać pewną dodatkową informację, która
 # upraszcza wykonanie operacjisumi którą można łatwo aktualizować).
 # Program sumuje elementy w drzewie BST z przedzialu [x,y], korzystajac z zapisania w kazdym node'dzie informacji o sumach lewego i prawego poddrzewa. */
+# elementy musza kurwa nalezec do drzewska
 
 class BNode:
     def __init__(self):
